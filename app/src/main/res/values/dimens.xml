@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_big_padding">16dp</dimen>
+    <dimen name="activity_medium_padding">12dp</dimen>
+    <dimen name="activity_small_padding">8dp</dimen>
+    <dimen name="activity_smaller_padding">4dp</dimen>
+
+    <dimen name="content_margin_huge">24dp</dimen>
+    <dimen name="content_margin_big">12dp</dimen>
+    <dimen name="content_margin_medium">8dp</dimen>
+    <dimen name="content_margin_small">6dp</dimen>
+    <dimen name="content_margin_smaller">4dp</dimen>
+
+    <dimen name="H1">32sp</dimen>
+    <dimen name="H2">28sp</dimen>
+    <dimen name="H3">24sp</dimen>
+
+    <dimen name="P1">20sp</dimen>
+    <dimen name="P2">18sp</dimen>
+    <dimen name="P3">16sp</dimen>
+    <dimen name="P4">14sp</dimen>
+    <dimen name="P5">12sp</dimen>
+
+    <dimen name="card_view_radius_def">8dp</dimen>
+    <dimen name="card_view_elevation_def">4dp</dimen>
+
+</resources>

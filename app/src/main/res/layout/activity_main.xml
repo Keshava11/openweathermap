@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/slate_blue"
+        android:padding="16dp"
+        tools:context=".forecast.view.MainActivity">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/location_imv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_location"
+            app:layout_constraintBottom_toBottomOf="@+id/location_detail_txv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/location_detail_txv" />
+
+        <TextView
+            android:id="@+id/location_detail_txv"
+            style="@style/CustomTextStyleHuge"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/content_margin_small"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/location_imv"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/location_update_status_txv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_margin_big"
+            android:text="Just updated"
+            android:textAppearance="?attr/textAppearanceHeadline3"
+            app:layout_constraintEnd_toStartOf="@+id/location_update_pb"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/location_detail_txv" />
+
+        <ProgressBar
+            android:id="@+id/location_update_pb"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/khaki_dark"
+            android:indeterminateTintMode="src_atop"
+            app:layout_constraintBottom_toBottomOf="@+id/location_update_status_txv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/location_update_status_txv"
+            app:layout_constraintTop_toTopOf="@+id/location_update_status_txv" />
+
+        <!--Current Weather-->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/current_weather_gist_imv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:src="@drawable/ic_weather_cloud"
+            app:layout_constraintBottom_toBottomOf="@+id/current_weather_gist_txv"
+            app:layout_constraintEnd_toStartOf="@+id/current_weather_divider_guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/current_temperature_txv" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/current_weather_divider_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.40" />
+
+        <TextView
+            android:id="@+id/current_temperature_txv"
+            style="@style/CustomTextStyleLargest"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_margin_huge"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/current_weather_divider_guideline"
+            app:layout_constraintTop_toBottomOf="@+id/location_update_status_txv" />
+
+        <TextView
+            android:id="@+id/current_feels_like_txv"
+            style="@style/CustomTextStyleNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="@+id/current_temperature_txv"
+            app:layout_constraintStart_toStartOf="@+id/current_temperature_txv"
+            app:layout_constraintTop_toBottomOf="@+id/current_temperature_txv" />
+
+        <TextView
+            android:id="@+id/current_weather_gist_txv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textAppearance="?attr/textAppearanceBody2"
+            app:layout_constraintEnd_toEndOf="@+id/current_temperature_txv"
+            app:layout_constraintStart_toStartOf="@+id/current_temperature_txv"
+            app:layout_constraintTop_toBottomOf="@+id/current_feels_like_txv" />
+
+
+        <!--Hourly Forecast-->
+        <TextView
+            android:id="@+id/hourly_forecast_label_txv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_margin_huge"
+            android:text="Hourly Forecast"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/current_weather_gist_txv" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/hourly_forecast_rv_container_cv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="130dp"
+            app:cardBackgroundColor="@color/slate_blue_dark"
+            app:cardCornerRadius="@dimen/card_view_radius_def"
+            app:cardElevation="@dimen/card_view_elevation_def"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintTop_toBottomOf="@+id/hourly_forecast_label_txv">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/hourly_forecast_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layoutAnimation="@anim/layout_animation"
+                android:padding="@dimen/activity_small_padding"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/hourly_forecast_label_txv" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <!--Daily Forecast-->
+        <TextView
+            android:id="@+id/daily_forecast_label_txv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_margin_big"
+            android:text="Daily Forecast"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hourly_forecast_rv_container_cv" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/daily_forecast_rv_container_cv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="130dp"
+            app:cardBackgroundColor="@color/slate_blue_dark"
+            app:cardCornerRadius="@dimen/card_view_radius_def"
+            app:cardElevation="@dimen/card_view_elevation_def"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintTop_toBottomOf="@+id/daily_forecast_label_txv">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/daily_forecast_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layoutAnimation="@anim/layout_animation"
+                android:padding="@dimen/activity_small_padding"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/daily_forecast_label_txv" />
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <TextView
+            android:id="@+id/wind_detail_label_txv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_margin_big"
+            android:text="Wind &amp; Pressure"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/daily_forecast_rv_container_cv" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/wind_pressure_detail_container_cv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/slate_blue_dark"
+            app:cardCornerRadius="@dimen/card_view_radius_def"
+            app:cardElevation="@dimen/card_view_elevation_def"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintTop_toBottomOf="@+id/wind_detail_label_txv">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/activity_medium_padding">
+
+                <TextView
+                    android:id="@+id/wind_dir_label_txv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/activity_small_padding"
+                    android:gravity="center_vertical"
+                    android:text="Wind Direction"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    app:drawableStartCompat="@drawable/ic_wind_dir"
+                    app:layout_constraintEnd_toStartOf="@+id/wind_dir_value_txv"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/wind_dir_value_txv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|end"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    app:layout_constraintBottom_toBottomOf="@+id/wind_dir_label_txv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/wind_dir_label_txv"
+                    app:layout_constraintTop_toTopOf="@+id/wind_dir_label_txv" />
+
+                <TextView
+                    android:id="@+id/wind_speed_label_txv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/content_margin_smaller"
+                    android:drawablePadding="@dimen/activity_small_padding"
+                    android:gravity="center_vertical"
+                    android:text="Wind Speed"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    app:drawableStartCompat="@drawable/ic_wind_speed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/wind_dir_label_txv" />
+
+                <TextView
+                    android:id="@+id/wind_speed_value_txv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|end"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    app:layout_constraintBottom_toBottomOf="@+id/wind_speed_label_txv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/wind_speed_label_txv"
+                    app:layout_constraintTop_toTopOf="@+id/wind_speed_label_txv" />
+
+                <TextView
+                    android:id="@+id/wind_pressure_label_txv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/content_margin_smaller"
+                    android:drawablePadding="@dimen/activity_small_padding"
+                    android:gravity="center_vertical"
+                    android:text="Pressure"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    app:drawableStartCompat="@drawable/ic_pressure"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/wind_speed_label_txv" />
+
+                <TextView
+                    android:id="@+id/wind_pressure_value_txv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|end"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    app:layout_constraintBottom_toBottomOf="@+id/wind_pressure_label_txv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/wind_pressure_label_txv"
+                    app:layout_constraintTop_toTopOf="@+id/wind_pressure_label_txv" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
