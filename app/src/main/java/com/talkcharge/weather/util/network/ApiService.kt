@@ -1,9 +1,9 @@
 package com.talkcharge.weather.util.network
 
 import com.talkcharge.weather.common.model.WeatherResponse
+import com.talkcharge.weather.common.model.current.CurrentWeatherResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
-import retrofit2.http.Url
 
 interface ApiService {
     @GET("onecall")
@@ -14,8 +14,11 @@ interface ApiService {
         @Query("exclude") exclude: String
     ): WeatherResponse
 
-//    // TODO Remove the following method
-//    @GET
-//    suspend fun getWeatherData(@Url url: String): WeatherResponse
+    @GET("weather")
+    suspend fun getCurrentWeatherData(
+        @Query("lat") lat: String,
+        @Query("lon") lon: String,
+        @Query("appid") appId: String
+    ): CurrentWeatherResponse
 
 }

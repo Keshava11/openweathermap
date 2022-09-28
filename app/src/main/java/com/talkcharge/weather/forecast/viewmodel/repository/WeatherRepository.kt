@@ -3,6 +3,7 @@ package com.talkcharge.weather.forecast.viewmodel.repository
 import com.talkcharge.weather.R
 import com.talkcharge.weather.WeatherApp
 import com.talkcharge.weather.common.model.WeatherResponse
+import com.talkcharge.weather.common.model.current.CurrentWeatherResponse
 import com.talkcharge.weather.util.network.ApiHelper
 
 class WeatherRepository {
@@ -16,4 +17,8 @@ class WeatherRepository {
         return apiHelper.getWeatherData(lat, lon, appId)
     }
 
+    suspend fun callCurrentWeatherApi(lat: String, lon: String): CurrentWeatherResponse {
+        val apiHelper = ApiHelper()
+        return apiHelper.getCurrentWeatherData(lat, lon, appId)
+    }
 }

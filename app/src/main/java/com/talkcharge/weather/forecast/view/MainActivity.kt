@@ -22,6 +22,7 @@ import com.talkcharge.weather.common.model.Daily
 import com.talkcharge.weather.common.model.Hourly
 import com.talkcharge.weather.common.model.Status
 import com.talkcharge.weather.common.model.WeatherResponse
+import com.talkcharge.weather.common.model.current.CurrentWeatherResponse
 import com.talkcharge.weather.databinding.ActivityMainBinding
 import com.talkcharge.weather.forecast.viewmodel.WeatherViewModel
 import com.talkcharge.weather.forecast.viewmodel.WeatherViewModelFactory
@@ -249,7 +250,27 @@ class MainActivity : AppCompatActivity() {
 
                 Status.ERROR -> {
                     binding.locationUpdatePb.visibility = View.GONE
-                    LogUtils.v("TAG", "Calling ViewModel to refresh the data again ${it.message}")
+                    LogUtils.v("TAG", "ViewModel error for weather data ${it.message}")
+                }
+
+            }
+        }
+
+        viewModel.getCurrentWeatherResponse(lat, lon).observe(this) {
+            when (it.status) {
+
+                Status.SUCCESS -> {
+                    binding.locationUpdatePb.visibility = View.GONE
+                    it.data?.let { weatherResponse -> updateHeader(weatherResponse) }
+                }
+
+                Status.LOADING -> {
+                    binding.locationUpdatePb.visibility = View.VISIBLE
+                }
+
+                Status.ERROR -> {
+                    binding.locationUpdatePb.visibility = View.GONE
+                    LogUtils.v("TAG", "ViewModel error for current weather data ${it.message}")
                 }
 
             }
@@ -257,15 +278,26 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun updateHeader(weatherData: CurrentWeatherResponse) {
+        try {
+            ToastUtils.showToastDebug(
+                "Current Weather Data received : ${weatherData.name}"
+            )
+
+            // top header
+            val headerStr = "${weatherData.name} / (${weatherData.coord?.lat}, ${weatherData.coord?.lon})"
+            binding.locationDetailTxv.text = headerStr
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            LogUtils.e("TAG", "Error updating header UI")
+        }
+    }
+
     private fun updateUI(weatherData: WeatherResponse) {
         try {
             ToastUtils.showToastDebug(
                 "Weather Data received : ${weatherData.lat}, ${weatherData.lon} " + "(${weatherData.timezone})"
             )
-
-            // top header
-            val headerStr = "${weatherData.lat}, ${weatherData.lon} - (${weatherData.timezone}"
-            binding.locationDetailTxv.text = headerStr
 
             // Get the current Data
             val currentData = weatherData.current
