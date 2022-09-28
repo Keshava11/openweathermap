@@ -35,6 +35,10 @@ android {
         viewBinding true
     }
 
+    lintOptions {
+        checkReleaseBuilds false
+    }
+
     namespace 'com.talkcharge.weather'
 }
 
